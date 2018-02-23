@@ -1,7 +1,17 @@
 
 var exp = require('./express');
-var monPath = "C:\\Temp\\demotemp\\demo12";
+
+var argv = require('yargs').argv;
+
+
 var bs = require('browser-sync').create();
+
+var monPath = argv.path;
+
+if(monPath === undefined){
+    console.log("No Arguments! Please run with --path 'somePath'");
+    process.exit();    
+}
 
 e = new exp(monPath, bs);
 

@@ -1,0 +1,30 @@
+{
+  "name": "mdmon",
+  "version": "1.0.0",
+  "description": "Watch and preview changes when editing Markdown",
+  "main": "mdmon.js",
+  "dependencies": {
+    "browser-sync": "^2.23.6",
+    "connect-browser-sync": "^2.1.0",
+    "express": "^4.16.2",
+    "gulp": "^3.9.1",
+    "marked": "^0.3.16",
+    "mkdirp": "^0.5.1",
+    "nodemon": "^1.15.1",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakkaj/mdmon.git"
+  },
+  "author": "jakkaj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jakkaj/mdmon/issues"
+  },
+  "homepage": "https://github.com/jakkaj/mdmon#readme"
+}
