@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Watch and preview changes when editing Markdown",
   "main": "mdmon.js",
+  "bin": {
+    "mdmon": "mdmon.js"
+  },
   "dependencies": {
     "browser-sync": "^2.23.6",
     "connect-browser-sync": "^2.1.0",

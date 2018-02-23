@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 var exp = require('./express');
 
@@ -12,6 +13,10 @@ if(monPath === undefined){
     console.log("No Arguments! Please run with --path 'somePath'");
     process.exit();    
 }
+
+
+
+
 
 e = new exp(monPath, bs);
 
