@@ -105,7 +105,7 @@ module.exports = class expressSetup{
             res.send("Not found " + fullPath);
             return;
         }
-        console.log(fullPath);
+        
         var fileContent = fs.readFileSync(fullPath);
 
         if(url.indexOf(".md") !=-1){
