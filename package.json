@@ -13,8 +13,7 @@
     "gulp": "^3.9.1",
     "marked": "^0.3.16",
     "mkdirp": "^0.5.1",
-    "nodemon": "^1.15.1",
-    "yargs": "^11.0.0"
+    "nodemon": "^1.15.1"
   },
   "devDependencies": {},
   "scripts": {

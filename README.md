@@ -23,6 +23,7 @@ mdmon --path /some/dir
 
 Mdmon has simple folder browsing capability so you can point to the base folder of your project and navigate around to find the file you want to monitor. 
 
+![mdmon](https://user-images.githubusercontent.com/5225782/36623877-38635068-195d-11e8-8269-f7a01c564a25.gif)
 
 
 

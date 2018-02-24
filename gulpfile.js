@@ -31,7 +31,7 @@ gulp.task('browser-sync', function () {
 
 gulp.task('express', function(cb){
     e = new exp(monPath, bs);
-    e.boot().then(cb);    
+    e.boot().then(cb);          
 });
 
 gulp.task('default', ['express', 'browser-sync', 'watcher']);

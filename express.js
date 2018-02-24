@@ -52,8 +52,8 @@ module.exports = class expressSetup{
         var fullPath = path.join(this.path, url);
         fs.readdir(fullPath, (err, items) =>{
             
-            var base = "";
-
+            var base = "<h1>mdmon</h1>";
+            base+= "<h4>" + fullPath + "</h4>";
             for (var i=0; i<items.length; i++) {
                 var pBuild = this.getBase(req);                
                
@@ -61,7 +61,9 @@ module.exports = class expressSetup{
                
             }
 
-            var replContent = this._getLocalPackageFile("html/template.htm");
+            
+
+            var replContent = this._getLocalPackageFile("packageHtml/template.htm");
             replContent = replContent.replace("{{}}", base);
             res.send(replContent);
             next();
@@ -76,13 +78,18 @@ module.exports = class expressSetup{
     intercept(req, res, next){
 
         var url = req.url;      
-
-        if(url.indexOf(".css")!=-1){
-             var css = this._getLocalPackageFile("html/github-markdown.css");
-             res.contentType("text/css");
-             res.send(css);
-             next();
-             return;
+        
+        if(url.indexOf("/packageHtml/") !=-1){
+        
+            var staticContent = this._getLocalPackageFile(url);
+            if(url.indexOf(".css")!=-1){
+                res.contentType("text/css");
+            }else if(url.indexOf(".js")!=-1){
+                res.contentType("application/javascript");
+            }
+            res.send(staticContent);
+            next();
+            return;
          }
 
         var fullPath = path.join(this.path, url);
@@ -108,7 +115,7 @@ module.exports = class expressSetup{
                 if (err){                   
                     res.send(fileContent);
                 }else{
-                    var replContent = this._getLocalPackageFile("html/template.htm");
+                    var replContent = this._getLocalPackageFile("packageHtml/template.htm");
                     replContent = replContent.replace("{{}}", content);
                     res.send(replContent);
                 }
