@@ -1,6 +1,6 @@
 {
   "name": "mdmon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Watch and preview changes when editing Markdown",
   "main": "mdmon.js",
   "bin": {
