@@ -52,7 +52,7 @@ module.exports = class expressSetup{
         var fullPath = path.join(this.path, url);
         fs.readdir(fullPath, (err, items) =>{
             
-            var base = "<html><head>" + this.inject() + "</head><body>";
+            var base = "";
 
             for (var i=0; i<items.length; i++) {
                 var pBuild = this.getBase(req);                
@@ -61,23 +61,29 @@ module.exports = class expressSetup{
                
             }
 
-            base += "</body></html>"
-            res.send(base);
+            var replContent = this._getLocalPackageFile("html/template.htm");
+            replContent = replContent.replace("{{}}", base);
+            res.send(replContent);
             next();
         });
     }
 
-    inject(){
-        return "<script async=\"\" src=\"/browser-sync/browser-sync-client.js\"></script>";
+    _getLocalPackageFile(rel){
+        var fullPath = path.join(__dirname, rel);        
+        return fs.readFileSync(fullPath).toString();
     }
 
     intercept(req, res, next){
 
         var url = req.url;      
 
-        // if(url.indexOf(".ico")!=-1){
-        //     return;
-        // }
+        if(url.indexOf(".css")!=-1){
+             var css = this._getLocalPackageFile("html/github-markdown.css");
+             res.contentType("text/css");
+             res.send(css);
+             next();
+             return;
+         }
 
         var fullPath = path.join(this.path, url);
         
@@ -102,8 +108,9 @@ module.exports = class expressSetup{
                 if (err){                   
                     res.send(fileContent);
                 }else{
-                    content += this.inject();
-                    res.send(content);
+                    var replContent = this._getLocalPackageFile("html/template.htm");
+                    replContent = replContent.replace("{{}}", content);
+                    res.send(replContent);
                 }
 
                 next()
