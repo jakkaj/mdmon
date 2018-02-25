@@ -17,9 +17,7 @@ It works by using [browser-sync](https://www.npmjs.com/package/browser-sync) in 
 npm install -g mdmon
 ```
 
-```
-mdmon --path /some/dir
-```
+`mdmon .` to run from the current terminal path or `mdmon ~/somefolderpath` to specify a path.  
 
 Mdmon has simple folder browsing capability so you can point to the base folder of your project and navigate around to find the file you want to monitor. 
 
