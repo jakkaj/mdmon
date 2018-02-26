@@ -1,38 +1,39 @@
 #!/usr/bin/env node
 
 var exp = require('./express');
-
+var program = require('commander');
 var args = process.argv;
-
+var getPort = require('get-port');
 var bs = require('browser-sync').create();
 
-if(args.length <= 2){
-    console.log("No Arguments! Please run with a full path or . for the current path");
-    process.exit();
-}
 
-var monPath = "";
+program
+    .version('{$version}')
+    .option("-p, --path [path]", "Path the the folder to monitor. May use '.' or full path. ")    
+    .parse(args);
 
-for(var i = 2; i < args.length; i++){
-    monPath += args[i] + " ";
-}
-
-monPath = monPath.trim();
-
-if(monPath == "."){
+if (program.path) {
+    monPath = program.path;
+} else {
     monPath = process.cwd();
 }
 
 e = new exp(monPath, bs);
 
-e.boot().then(()=>{
-    bs.init({
-        port: 5000,      
-        files:
-        [
-            monPath + "/**/*.*"
-        ],
-        proxy: "localhost:3000"
+getPort().then(readyPort => {
+    e.boot(readyPort).then(() => {
+        getPort().then(proxyPort =>{
+            bs.init({
+                port: proxyPort,
+                files:
+                    [
+                        monPath + "/**/*.*"
+                    ],
+                proxy: `localhost:${readyPort}`
+            });
+        });
+       
     });
 });
+
 

@@ -23,11 +23,11 @@ module.exports = class expressSetup{
         this.bs = bs;
     }
 
-    boot(){        
+    boot(port){        
         return new Promise((good)=>{
             app.use(this.intercept.bind(this));
             app.use(require('connect-browser-sync')(this.bs));
-            app.listen(3000, () => good());
+            app.listen(port, () => good());
         })
     }
 
@@ -94,17 +94,17 @@ module.exports = class expressSetup{
 
         var fullPath = path.join(this.path, url);
         
-        var stats = fs.lstatSync(fullPath);
-
-        if(stats.isDirectory()){
-            this.baseDir(req, res, next);
-            return;
-        }
-
         if(!fs.existsSync(fullPath)){
             res.send("Not found " + fullPath);
             return;
         }
+
+        var stats = fs.lstatSync(fullPath);       
+
+        if(stats.isDirectory()){
+            this.baseDir(req, res, next);
+            return;
+        }        
         
         var fileContent = fs.readFileSync(fullPath);
 
