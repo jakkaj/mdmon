@@ -1,5 +1,7 @@
 # mdmon
 
+You can watch a quick demo of mdmon in action [here](https://youtu.be/xrdXQnRcRw4).
+
 <a href="https://www.npmjs.com/package/mdmon">
     <svg width="100" viewBox="0 0 18 7">
 	    <path fill="#CB3837" d="M0,0v6h5v1h4v-1h9v-6"></path>
