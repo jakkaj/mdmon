@@ -50,6 +50,7 @@ module.exports = class expressSetup{
         var url = req.url;
       
         var fullPath = path.join(this.path, url);
+
         fs.readdir(fullPath, (err, items) =>{
             
             var base = "<h1>mdmon</h1>";
@@ -64,7 +65,8 @@ module.exports = class expressSetup{
             
 
             var replContent = this._getLocalPackageFile("packageHtml/template.htm");
-            replContent = replContent.replace("{{}}", base);
+            replContent = replContent.replace("{{content}}", base);
+            replContent = replContent.replace("{{title}}", path.basename(fullPath));
             res.send(replContent);
             next();
         });
@@ -116,7 +118,8 @@ module.exports = class expressSetup{
                     res.send(fileContent);
                 }else{
                     var replContent = this._getLocalPackageFile("packageHtml/template.htm");
-                    replContent = replContent.replace("{{}}", content);
+                    replContent = replContent.replace("{{content}}", content);
+                    replContent = replContent.replace("{{title}}", path.basename(fullPath));
                     res.send(replContent);
                 }
 
