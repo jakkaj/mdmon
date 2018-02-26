@@ -28,6 +28,9 @@ Mdmon has simple folder browsing capability so you can point to the base folder 
 
 <img width="200" src="https://user-images.githubusercontent.com/5225782/36624457-aacd2ee8-1963-11e8-8a8e-1841508b1d36.PNG"/>
 
+### New Tab
+
+Keep an eye out for the New Tab button at the bottom to open up another browser tab at the root of your selected folder!
 
 ### Samples
 
