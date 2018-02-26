@@ -13,21 +13,24 @@ Editing markdown in Visual Studio Code is awesome - it can even preview your mar
 
 It works by using [browser-sync](https://www.npmjs.com/package/browser-sync) in combination with [express](https://www.npmjs.com/package/express) to monitor and reload your files when they change. Markdown rendering is performed by [marked](https://www.npmjs.com/package/marked). 
 
+### Install
+
 ```
 npm install -g mdmon
 ```
 
-`mdmon .` to run from the current terminal path or `mdmon ~/somefolderpath` to specify a path.  
+### Usage
+Type `mdmon` to run from the current terminal path or `mdmon -p '~/somefolderpath'` to specify a path.  
+
+### Browsing
 
 Mdmon has simple folder browsing capability so you can point to the base folder of your project and navigate around to find the file you want to monitor. 
-
-![mdmon](https://user-images.githubusercontent.com/5225782/36623877-38635068-195d-11e8-8269-f7a01c564a25.gif)
-
-
-<img src="https://user-images.githubusercontent.com/5225782/36624454-9f953f02-1963-11e8-8093-469ccc444d4b.PNG" width="500"/>
-
 
 <img width="200" src="https://user-images.githubusercontent.com/5225782/36624457-aacd2ee8-1963-11e8-8a8e-1841508b1d36.PNG"/>
 
 
+### Samples
+
+
+![mdmon](https://user-images.githubusercontent.com/5225782/36623877-38635068-195d-11e8-8269-f7a01c564a25.gif)
 
