@@ -15,6 +15,18 @@ Editing markdown in Visual Studio Code is awesome - it can even preview your mar
 
 It works by using [browser-sync](https://www.npmjs.com/package/browser-sync) in combination with [express](https://www.npmjs.com/package/express) to monitor and reload your files when they change. Markdown rendering is performed by [marked](https://www.npmjs.com/package/marked). 
 
+### Syntax Highlighting
+
+Syntax highlighting is provided with [Prism](http://prismjs.com/) with all languages supported. 
+
+For example to show some c# code:
+
+```
+    ```csharp
+    var something = "somevalue";
+    ```
+```
+
 ### Install
 
 ```
