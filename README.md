@@ -21,13 +21,14 @@ Syntax highlighting is provided with [Prism](http://prismjs.com/) with all langu
 
 For example to show some c# code:
 
-```
+
     ```csharp
     var something = "somevalue";
     ```
-```
+
 
 ### Install
+To install run the following command:
 
 ```
 npm install -g mdmon
@@ -45,6 +46,10 @@ Mdmon has simple folder browsing capability so you can point to the base folder 
 ### New Tab
 
 Keep an eye out for the New Tab button at the bottom to open up another browser tab at the root of your selected folder!
+
+### Download PDF
+
+You can use the button at the bottom of MD pages to download the page as a pdf. Handy!
 
 ### Samples
 

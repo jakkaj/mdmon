@@ -1,6 +1,6 @@
 {
   "name": "mdmon",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Watch and preview changes when editing Markdown",
   "main": "mdmon.js",
   "bin": {
@@ -15,7 +15,9 @@
     "gulp": "^3.9.1",
     "marked": "^0.3.16",
     "mkdirp": "^0.5.1",
-    "nodemon": "^1.15.1"
+    "nodemon": "^1.15.1",
+    "phantomjs-prebuilt": "^2.1.16",
+    "temp": "^0.8.3"
   },
   "devDependencies": {},
   "scripts": {

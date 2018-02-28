@@ -3,6 +3,13 @@ const app = express()
 const path = require('path');
 const fs = require('fs');
 var marked = require('marked');
+var phantomjs = require('phantomjs-prebuilt');
+var temp = require('temp');
+var childProcess = require('child_process')
+
+temp.track();
+
+var binPath = phantomjs.path
 
 marked.setOptions({
     renderer: new marked.Renderer(),
@@ -49,6 +56,15 @@ module.exports = class expressSetup {
     baseDir(req, res, next) {
         var url = req.url;
 
+        var url = req.url;
+        var qs = "";   
+
+        if(url.indexOf("?")!=-1){
+            var split = url.split("?");
+            url =split[0];
+            qs = split[1];
+        }
+
         var fullPath = path.join(this.path, url);
 
         fs.readdir(fullPath, (err, items) => {
@@ -67,6 +83,7 @@ module.exports = class expressSetup {
             var replContent = this._getLocalPackageFile("packageHtml/template.htm").toString();            
             replContent = replContent.replace("{{content}}", base);
             replContent = replContent.replace("{{title}}", path.basename(fullPath));
+            replContent = replContent.replace(/<!--pdf bits-->(.|\n|\r)*\<!--\/pdf bits-->/gi, "");
             res.send(replContent);
             next();
         });
@@ -80,7 +97,19 @@ module.exports = class expressSetup {
     intercept(req, res, next) {
 
         var url = req.url;
-       
+        var qs = "";
+   
+
+        if(url.indexOf("?")!=-1){
+            var split = url.split("?");
+            url =split[0];
+            qs = split[1];
+        }
+
+        console.log(url + "  qs: " + qs);
+        
+        
+
         if (url.indexOf("/packageHtml/") != -1) {
             var staticContent = this._getLocalPackageFile(url);
             if (url.indexOf(".css") != -1) {
@@ -123,10 +152,62 @@ module.exports = class expressSetup {
                     var replContent = this._getLocalPackageFile("packageHtml/template.htm").toString();
                     replContent = replContent.replace("{{content}}", content);
                     replContent = replContent.replace("{{title}}", path.basename(fullPath));
-                    res.send(replContent);
+
+                    if(qs.indexOf("pdf")!=-1){
+                        res.contentType("application/pdf");
+                      
+                        var fullUrl = req.protocol + '://' + req.get('host') + url + "?removeFooter=true";
+                        var tempName = temp.path({suffix: '.pdf'});
+                        var scriptName = temp.path({suffix: '.js'})
+                      
+                        var phant = this._getLocalPackageFile('packageHtml/phantom.js').toString();
+
+                        var phant = phant.replace("{{sourceUrl}}", fullUrl);
+                        phant = phant.replace("{{outputPage}}", tempName.replace(/\\/gi, '\\\\'));
+
+                        console.log(phant);
+
+                        fs.writeFileSync(scriptName, phant);
+
+                        var childArgs = [scriptName]
+                           
+                        childProcess.execFile(binPath, childArgs, function(err, stdout, stderr) {
+                            
+                            if(err){
+                                res.contentType("text/html");
+                                res.send(err);
+                                console.log(err);
+                                next();
+                                return;
+                            }
+
+                            if(stderr){
+                                res.contentType("text/html");
+                                res.send( stderrerr);
+                                console.log( stderrerr);
+                                next();
+                                return;
+                            }
+
+                            res.contentType("application/pdf");
+                            res.send(fs.readFileSync(tempName));
+                            next();
+                        });
+
+
+                        console.log(fullUrl);
+                    }else{
+                        if(qs.indexOf("removeFooter")!=-1){
+                            replContent = replContent.replace(/<!--bottom bits-->(.|\n|\r)*\<!--\/bottom bits-->/gi, "");
+                        }
+                        res.send(replContent);
+                        next();
+                    }
+
+                    
                 }
 
-                next()
+                
 
             });
 
