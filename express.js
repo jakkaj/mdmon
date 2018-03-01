@@ -106,10 +106,6 @@ module.exports = class expressSetup {
             qs = split[1];
         }
 
-        console.log(url + "  qs: " + qs);
-        
-        
-
         if (url.indexOf("/packageHtml/") != -1) {
             var staticContent = this._getLocalPackageFile(url);
             if (url.indexOf(".css") != -1) {
@@ -165,8 +161,7 @@ module.exports = class expressSetup {
                         var phant = phant.replace("{{sourceUrl}}", fullUrl);
                         phant = phant.replace("{{outputPage}}", tempName.replace(/\\/gi, '\\\\'));
 
-                        console.log(phant);
-
+                        
                         fs.writeFileSync(scriptName, phant);
 
                         var childArgs = [scriptName]
@@ -193,9 +188,7 @@ module.exports = class expressSetup {
                             res.send(fs.readFileSync(tempName));
                             next();
                         });
-
-
-                        console.log(fullUrl);
+                        
                     }else{
                         if(qs.indexOf("removeFooter")!=-1){
                             replContent = replContent.replace(/<!--bottom bits-->(.|\n|\r)*\<!--\/bottom bits-->/gi, "");
